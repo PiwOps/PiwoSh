@@ -4,12 +4,13 @@ package logger
 type Resource string
 
 const (
-	ResourceCommand Resource = "COMMAND"
-	ResourceConfig  Resource = "CONFIG"
-	ResourceEnv     Resource = "ENV"
-	ResourceChannel Resource = "CHANNEL"
-	ResourceGuild   Resource = "GUILD"
-	ResourceUser    Resource = "USER"
+	ResourceCommand        Resource = "COMMAND"
+	ResourceConfig         Resource = "CONFIG"
+	ResourceCmdConfigEntry Resource = "CMD_CONFIG_ENTRY"
+	ResourceEnv            Resource = "ENV"
+	ResourceChannel        Resource = "CHANNEL"
+	ResourceGuild          Resource = "GUILD"
+	ResourceUser           Resource = "USER"
 )
 
 var (

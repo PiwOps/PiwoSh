@@ -7,19 +7,22 @@ import (
 	"syscall"
 
 	"smuggr.xyz/piwosh/common/logger"
+	"smuggr.xyz/piwosh/common/configurator"
 
 	"github.com/bwmarrin/discordgo"
 )
 
 var Logger = logger.NewCustomLogger("bott")
+var Config *configurator.BotConfig
 var Session *discordgo.Session
 
 func Initialize() chan os.Signal {
 	Logger.Info(logger.MsgInitializing)
+	Config = &configurator.Config.Bot
 
-	s, err := discordgo.New("Bot " + os.Getenv("DISCORD_BOT_TOKEN"))
+	s, err := discordgo.New("Bot " + os.Getenv("DISCORD_TOKEN"))
 	if err != nil {
-		Logger.Fatalf("invalid bot parameters: %v", err)
+		Logger.Fatalf("invalid session parameters: %v", err)
 		return nil
 	}
 	Session = s
@@ -34,8 +37,6 @@ func Initialize() chan os.Signal {
 
 	signalCh := make(chan os.Signal, 1)
 	signal.Notify(signalCh, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
-
-	Logger.Success("bot is running, press ctrl+c to exit")
 
 	setupCommands()
 

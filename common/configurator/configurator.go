@@ -41,6 +41,7 @@ func loadConfig(config *GlobalConfig) error {
 
 func Initialize() {
 	Logger.Info(logger.MsgInitializing)
+	
 
 	if err := loadEnv(); err != nil {
 		Logger.Error(err)

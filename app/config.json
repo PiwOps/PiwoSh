@@ -1,3 +1,6 @@
 {
-	
+	"bot": {
+		"name": "PiwOps",
+		"default_status": "I love piwo <3"
+	}
 }

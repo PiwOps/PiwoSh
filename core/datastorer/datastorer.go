@@ -14,7 +14,7 @@ var Logger = logger.NewCustomLogger("data")
 
 var DB *gorm.DB
 
-func GetDSN() string {
+func getDSN() string {
 	return "host=" + os.Getenv("DB_HOST") +
 		" port=" + os.Getenv("DB_PORT") +
 		" user=" + os.Getenv("DB_USER") +
@@ -27,16 +27,16 @@ func GetDSN() string {
 func Initialize() {
 	Logger.Info(logger.MsgInitializing)
 
-	db, err := gorm.Open(postgres.Open(GetDSN()))
+	db, err := gorm.Open(postgres.Open(getDSN()))
 	if err != nil {
 		Logger.Log(logger.ErrInitializing.Format(err.Error()))
 	}
 
 	DB = db
 	
-	// if err := DB.AutoMigrate(); err != nil {
-	// 	Logger.Log(logger.ErrInitializing.Format(err.Error()))
-	// }
+	if err := DB.AutoMigrate(&User{}, &CommandsConfig{}); err != nil {
+		Logger.Log(logger.ErrInitializing.Format(err.Error()))
+	}
 
 	Logger.Success(fmt.Sprintf(
 		"connected to database %s on: %s:%s as user: %s",
